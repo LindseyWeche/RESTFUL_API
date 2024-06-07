@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 
   console.log(
     `-----
-${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
+${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`,
   );
   if (Object.keys(req.body).length > 0) {
     console.log("Containing the data:");
@@ -48,6 +48,18 @@ app.use("/api", function (req, res, next) {
   // Valid key! Store it in req.key for route access.
   req.key = key;
   next();
+});
+
+// Create other routes
+app.get("/api/users/:id/posts", (req, res) => {
+  const post = posts.find((p) => p.id == req.params.id);
+  if (post) res.json(post);
+});
+
+app.get("/api/posts?userId=<VALUE>", (req, res) => {
+  const post = posts.find((p) => p.id == req.params.id);
+  if (post) {
+  }
 });
 
 // Use our Routes
